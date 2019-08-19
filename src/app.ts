@@ -1,7 +1,7 @@
 import * as express from "express";
 import { Route } from "./routes/route";
 import ApplicationContext from "./infrastructure/applicationContext";
-import * as BodyParser from "body-parser";
+import * as bodyParser from "body-parser";
 
 class App {
     public app: express.Application;
@@ -19,8 +19,8 @@ class App {
   }
 
   middler() {
-    this.app.use(BodyParser.json());
-    this.app.use(this.bodyParser.urlencoded({extend: false}));
+    this.app.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({ extended: false }));
   }
 
 }

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const route_1 = require("./routes/route");
 const applicationContext_1 = require("./infrastructure/applicationContext");
-const BodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 class App {
     constructor() {
         this.app = express();
@@ -14,8 +14,8 @@ class App {
         this.routes.routes(this.app);
     }
     middler() {
-        this.app.use(BodyParser.json());
-        this.app.use(this.bodyParser.urlencoded({ extend: false }));
+        this.app.use(bodyParser.json());
+        this.app.use(bodyParser.urlencoded({ extended: false }));
     }
 }
 exports.default = new App();
