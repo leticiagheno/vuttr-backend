@@ -30,4 +30,4 @@ class ToolController {
             .catch(error => util_1.default.sendResponse(res, HttpStatus.BAD_REQUEST, error));
     }
 }
-exports.default = ToolController;
+exports.default = new ToolController();

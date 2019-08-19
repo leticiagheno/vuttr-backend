@@ -38,4 +38,4 @@ class ToolController {
 
 }
 
-export default ToolController;
+export default new ToolController();
