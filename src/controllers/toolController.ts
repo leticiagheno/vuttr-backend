@@ -5,14 +5,13 @@ import Util from "../utils/util";
 class ToolController {
 
     get(req, res) {
-        let tag = req.params.tag;
+        let tag = req.query.tag;
 
         if (tag == null) {
             ToolService.getAll()
                 .then(tools => Util.sendResponse(res, HttpStatus.OK, tools))
                 .catch(error => Util.sendResponse(res, HttpStatus.BAD_REQUEST, error));
-        }
-        else {
+        } else {
             ToolService.getByTag(tag)
                 .then(tools => Util.sendResponse(res, HttpStatus.OK, tools))
                 .catch(error => Util.sendResponse(res, HttpStatus.BAD_REQUEST, error));

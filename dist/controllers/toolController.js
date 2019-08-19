@@ -5,7 +5,7 @@ const HttpStatus = require("http-status");
 const util_1 = require("../utils/util");
 class ToolController {
     get(req, res) {
-        let tag = req.params.tag;
+        let tag = req.query.tag;
         if (tag == null) {
             toolService_1.default.getAll()
                 .then(tools => util_1.default.sendResponse(res, HttpStatus.OK, tools))
