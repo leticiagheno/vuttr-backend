@@ -7,7 +7,7 @@ class ToolService {
     }
 
     getByTag(tag: String) {
-        return ToolRepository.find({ tags: [tag] })
+        return ToolRepository.find({ tags: tag })
     }
 
     insert(tool){
@@ -15,7 +15,7 @@ class ToolService {
     }
 
     delete(id){
-        return ToolRepository.deleteOne(id);
+        return ToolRepository.findByIdAndRemove(id);
     }
 }
 

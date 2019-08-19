@@ -6,13 +6,13 @@ class ToolService {
         return toolRepository_1.default.find({});
     }
     getByTag(tag) {
-        return toolRepository_1.default.find({ tags: [tag] });
+        return toolRepository_1.default.find({ tags: tag });
     }
     insert(tool) {
         return toolRepository_1.default.create(tool);
     }
     delete(id) {
-        return toolRepository_1.default.deleteOne(id);
+        return toolRepository_1.default.findByIdAndRemove(id);
     }
 }
 exports.default = new ToolService();
