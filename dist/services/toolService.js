@@ -8,6 +8,10 @@ class ToolService {
     getByTag(tag) {
         return toolRepository_1.default.find({ tags: tag });
     }
+    getGlobal(global) {
+        var tags = toolRepository_1.default.find({ $or: [{ tags: global }] });
+        return tags;
+    }
     insert(tool) {
         return toolRepository_1.default.create(tool);
     }

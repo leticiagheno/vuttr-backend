@@ -6,12 +6,18 @@ class ToolController {
 
     get(req, res) {
         let tag = req.query.tag;
+        let global = req.query.tag;
 
-        if (tag == null) {
+        if (tag == null && global == null) {
             ToolService.getAll()
                 .then(tools => Util.sendResponse(res, HttpStatus.OK, tools))
                 .catch(error => Util.sendResponse(res, HttpStatus.BAD_REQUEST, error));
-        } else {
+        } else if (global == null) {
+            ToolService.getByTag(tag)
+                .then(tools => Util.sendResponse(res, HttpStatus.OK, tools))
+                .catch(error => Util.sendResponse(res, HttpStatus.BAD_REQUEST, error));
+        } 
+        else {
             ToolService.getByTag(tag)
                 .then(tools => Util.sendResponse(res, HttpStatus.OK, tools))
                 .catch(error => Util.sendResponse(res, HttpStatus.BAD_REQUEST, error));
