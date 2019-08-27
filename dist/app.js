@@ -6,7 +6,9 @@ const applicationContext_1 = require("./infrastructure/applicationContext");
 const bodyParser = require("body-parser");
 class App {
     constructor() {
+        var cors = require('cors');
         this.app = express();
+        this.app.use(cors());
         this.routes = new route_1.Route();
         this.context = new applicationContext_1.default();
         this.context.createConnection();

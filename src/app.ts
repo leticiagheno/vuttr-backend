@@ -10,7 +10,10 @@ class App {
     private bodyParser;
 
   constructor() {
+    
+      var cors = require('cors');
       this.app = express();
+      this.app.use(cors());
       this.routes = new Route();
       this.context = new ApplicationContext();
       this.context.createConnection();
