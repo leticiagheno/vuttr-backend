@@ -6,7 +6,7 @@ class Route {
         app.route('/').get((req, res) => {
             res.send({ versao: '0.0.1' });
         });
-        //GetAll and GetByTag
+        //GetAll, GetByTag and GetByName
         app.route('/tools').get(toolController_1.default.get);
         //Create new tool
         app.route('/tools').post(toolController_1.default.insert);
