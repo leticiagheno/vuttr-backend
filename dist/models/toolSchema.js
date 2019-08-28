@@ -15,4 +15,5 @@ const toolSchema = new mongoose.Schema({
         type: [String]
     }
 });
+toolSchema.index({ '$**': 'text' });
 exports.default = toolSchema;
