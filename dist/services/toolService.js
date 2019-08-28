@@ -9,8 +9,15 @@ class ToolService {
         return toolRepository_1.default.find({ tags: tag });
     }
     getGlobal(global) {
-        var tags = toolRepository_1.default.find({ $or: [{ tags: global }] });
-        return tags;
+        var searchGlobal = toolRepository_1.default.find({ $text: { $search: global } }, function (err, results) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log(results);
+            }
+        });
+        return searchGlobal;
     }
     insert(tool) {
         return toolRepository_1.default.create(tool);

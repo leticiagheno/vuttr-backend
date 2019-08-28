@@ -11,8 +11,15 @@ class ToolService {
     }
 
     getGlobal(global: String) {
-        var tags = ToolRepository.find( { $or: [{ tags: global } ]} );
-        return tags;
+        var searchGlobal = ToolRepository.find({ $text: { $search: global}}, function (err, results) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(results);
+            }
+        });
+
+        return searchGlobal;
     }
 
     insert(tool){
