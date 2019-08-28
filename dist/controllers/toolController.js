@@ -6,7 +6,7 @@ const util_1 = require("../utils/util");
 class ToolController {
     get(req, res) {
         let tag = req.query.tag;
-        let global = req.query.tag;
+        let global = req.query.global;
         if (tag == null && global == null) {
             toolService_1.default.getAll()
                 .then(tools => util_1.default.sendResponse(res, HttpStatus.OK, tools))
@@ -18,7 +18,7 @@ class ToolController {
                 .catch(error => util_1.default.sendResponse(res, HttpStatus.BAD_REQUEST, error));
         }
         else {
-            toolService_1.default.getByTag(tag)
+            toolService_1.default.getGlobal(global)
                 .then(tools => util_1.default.sendResponse(res, HttpStatus.OK, tools))
                 .catch(error => util_1.default.sendResponse(res, HttpStatus.BAD_REQUEST, error));
         }
