@@ -7,7 +7,6 @@ class ToolService {
     }
     getByTag(tag) {
         var searchByTag = toolRepository_1.default.find({ tags: tag });
-        console.log(searchByTag);
         return searchByTag;
     }
     getGlobal(global) {

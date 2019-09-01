@@ -12,8 +12,8 @@ class ToolController {
             ToolService.getAll()
                 .then(tools => Util.sendResponse(res, HttpStatus.OK, tools))
                 .catch(error => Util.sendResponse(res, HttpStatus.BAD_REQUEST, error));
-        } else if (global == null) {
-            console.log("entrou tag: " + tag);
+        } 
+        else if (global == null) {
             ToolService.getByTag(tag)
                 .then(tools => Util.sendResponse(res, HttpStatus.OK, tools))
                 .catch(error => Util.sendResponse(res, HttpStatus.BAD_REQUEST, error));
