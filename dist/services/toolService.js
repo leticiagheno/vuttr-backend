@@ -6,7 +6,9 @@ class ToolService {
         return toolRepository_1.default.find({});
     }
     getByTag(tag) {
-        return toolRepository_1.default.find({ tags: tag });
+        var searchByTag = toolRepository_1.default.find({ tags: tag });
+        console.log(searchByTag);
+        return searchByTag;
     }
     getGlobal(global) {
         var searchGlobal = toolRepository_1.default.find({ $text: { $search: global } }, function (err, results) {

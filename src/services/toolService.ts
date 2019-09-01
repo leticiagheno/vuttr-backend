@@ -7,11 +7,12 @@ class ToolService {
     }
 
     getByTag(tag: String) {
-        return ToolRepository.find({ tags: tag })
+        var searchByTag = ToolRepository.find({ tags: tag });
+        return searchByTag;
     }
 
     getGlobal(global: String) {
-        var searchGlobal = ToolRepository.find({ $text: { $search: global}}, function (err, results) {
+        var searchGlobal = ToolRepository.find({ $text: { $search: global }}, function (err, results) {
             if (err) {
                 console.log(err);
             } else {
