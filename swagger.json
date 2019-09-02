@@ -1,0 +1,276 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Uma simples API criada para o desafio BossaBox. Ela deve gerenciar ferramentas com seus nomes, links, descrições e tags, além de permitir fazer o cadastro de novos usuários e login. ",
+    "version" : "1.0.0",
+    "title" : "VUTTR - Very Useful Tools to Remember"
+  },
+  "host" : "localhost:3000",
+  "tags" : [ {
+    "name" : "Auth",
+    "description" : "Métodos de criação de novo usuário e login na aplicação."
+  }, {
+    "name" : "Tool",
+    "description" : "Métodos para gerenciar as ferramentas."
+  } ],
+  "paths" : {
+    "/signin" : {
+      "post" : {
+        "tags" : [ "Auth" ],
+        "summary" : "Realiza o login na aplicação.",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Dados do usuário para login.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/User"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Login autorizado.",
+            "schema" : {
+              "items" : {
+                "$ref" : "#/definitions/Token"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Login não autorizado."
+          }
+        }
+      }
+    },
+    "/signup" : {
+      "post" : {
+        "tags" : [ "Auth" ],
+        "summary" : "Cria um novo usuário na aplicação.",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Dados do usuário.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Login"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Usuário criado com sucesso."
+          },
+          "409" : {
+            "description" : "Usuário já existente no banco."
+          },
+          "400" : {
+            "description" : "Erro ao criar usuário."
+          }
+        }
+      }
+    },
+    "/tool" : {
+      "post" : {
+        "tags" : [ "Tool" ],
+        "summary" : "Cria uma nova ferramenta.",
+        "operationId" : "addTool",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Ferramenta que será adicionada ao gerenciador.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Tool"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Ferramenta criada com sucesso.",
+            "schema" : {
+              "items" : {
+                "$ref" : "#/definitions/ToolReturn"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Erro ao criar ferramenta."
+          }
+        }
+      },
+      "get" : {
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "tag",
+          "type" : "string",
+          "required" : false,
+          "description" : "Faz a pesquisa pelo nome da tag."
+        }, {
+          "in" : "query",
+          "name" : "global",
+          "type" : "string",
+          "required" : false,
+          "description" : "Faz a pesquisa por texto em todas as propriedades da ferramenta."
+        } ],
+        "tags" : [ "Tool" ],
+        "summary" : "Retorna as ferramentas, conforme solicitado.",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "Retorna as ferramentas solicitadas.",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ToolReturnAll"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Erro ao fazer solicitação."
+          }
+        }
+      }
+    },
+    "/tool/{id}" : {
+      "delete" : {
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "type" : "integer",
+          "required" : true
+        } ],
+        "tags" : [ "Tool" ],
+        "summary" : "Exclui uma ferramenta através do Id.",
+        "operationId" : "deleteTool",
+        "responses" : {
+          "204" : {
+            "description" : "Ferramenta excluída com sucesso."
+          },
+          "400" : {
+            "description" : "Erro ao excluir ferramenta."
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "User" : {
+      "type" : "object",
+      "required" : [ "nome", "email", "senha" ],
+      "properties" : {
+        "nome" : {
+          "type" : "string",
+          "example" : "Letícia Gheno Baldissarelli"
+        },
+        "email" : {
+          "type" : "string",
+          "example" : "leticia@bossabox.com.br"
+        },
+        "senha" : {
+          "type" : "string",
+          "example" : "189632"
+        }
+      }
+    },
+    "Login" : {
+      "type" : "object",
+      "required" : [ "email", "senha" ],
+      "properties" : {
+        "email" : {
+          "type" : "string",
+          "example" : "leticia@bossabox.com.br"
+        },
+        "senha" : {
+          "type" : "string",
+          "example" : "189632"
+        }
+      }
+    },
+    "Token" : {
+      "type" : "object",
+      "required" : [ "result" ],
+      "properties" : {
+        "result" : {
+          "type" : "string",
+          "example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJEZXNhZmlvIGJvc3NhIiwiaWF0IjozOSwiZXhwIjoxNTY3MzgyNDM5NTIwLCJlbWFpbCI6ImxldGljaWFiYWxkaXNzYXJlbGxpQGdtYWlsLmNvbSJ9.5ofuiAatSgjow0yhr7MFLzxTMErAq8X5we18fBozEws"
+        }
+      }
+    },
+    "Tool" : {
+      "type" : "object",
+      "required" : [ "title", "link" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "readOnly" : true,
+          "example" : 0
+        },
+        "title" : {
+          "type" : "string",
+          "example" : "Fastify"
+        },
+        "link" : {
+          "type" : "string",
+          "example" : "https://www.fastify.io/"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Extremely fast and simple, low-overhead web framework for NodeJS. Supports HTTP2."
+        },
+        "tags" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "example" : "web"
+          }
+        }
+      }
+    },
+    "ToolReturn" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "example" : 0
+        },
+        "title" : {
+          "type" : "string",
+          "example" : "Fastify"
+        },
+        "link" : {
+          "type" : "string",
+          "example" : "https://www.fastify.io/"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Extremely fast and simple, low-overhead web framework for NodeJS. Supports HTTP2."
+        },
+        "tags" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "example" : "web"
+          }
+        }
+      }
+    },
+    "ToolReturnAll" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/Tool",
+        "example" : [ {
+          "id" : "0,",
+          "name" : "Fastify",
+          "link" : "https://www.fastify.io/",
+          "description" : "Extremely fast and simple, low-overhead web framework for NodeJS. Supports HTTP2.",
+          "tags" : [ "web", "fastify" ]
+        }, {
+          "id" : "1,",
+          "name" : "json-server",
+          "link" : "https://github.com/typicode/json-server",
+          "description" : "Fake REST API based on a json schema. Useful for mocking and creating APIs for front-end devs to consume in coding challenges.",
+          "tags" : [ "web", "node", "json" ]
+        } ]
+      }
+    }
+  }
+}
