@@ -24,7 +24,7 @@
           "description" : "Dados do usuário para login.",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/User"
+            "$ref" : "#/definitions/Login"
           }
         } ],
         "responses" : {
@@ -52,7 +52,7 @@
           "description" : "Dados do usuário.",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/Login"
+            "$ref" : "#/definitions/User"
           }
         } ],
         "responses" : {
@@ -75,6 +75,12 @@
         "operationId" : "addTool",
         "produces" : [ "application/json" ],
         "parameters" : [ {
+          "in" : "header",
+          "name" : "x-access-token",
+          "description" : "Token necessário para acesso a aplicação.",
+          "required" : true,
+          "type" : "string"
+        }, {
           "in" : "body",
           "name" : "body",
           "description" : "Ferramenta que será adicionada ao gerenciador.",
@@ -99,6 +105,12 @@
       },
       "get" : {
         "parameters" : [ {
+          "in" : "header",
+          "name" : "x-access-token",
+          "description" : "Token necessário para acesso a aplicação.",
+          "required" : true,
+          "type" : "string"
+        }, {
           "in" : "query",
           "name" : "tag",
           "type" : "string",
@@ -133,6 +145,12 @@
     "/tool/{id}" : {
       "delete" : {
         "parameters" : [ {
+          "in" : "header",
+          "name" : "x-access-token",
+          "description" : "Token necessário para acesso a aplicação.",
+          "required" : true,
+          "type" : "string"
+        }, {
           "in" : "path",
           "name" : "id",
           "type" : "integer",
